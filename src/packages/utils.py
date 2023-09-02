@@ -1,7 +1,14 @@
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 # Env
-config = load_dotenv('../.env')
+def load_config():
+
+  load_dotenv(find_dotenv())
+
+  config = load_dotenv('../.env')
+
+  return config
+
 
 # Langchain
 # from langchain.vectorstores import DeepLake
