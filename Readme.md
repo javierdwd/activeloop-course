@@ -1,4 +1,4 @@
-## Activeloop Cource
+## Activeloop Course
 
 [ActiveLoop Ai](https://learn.activeloop.ai/courses)
 
