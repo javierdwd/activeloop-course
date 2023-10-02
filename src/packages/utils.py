@@ -1,13 +1,13 @@
 from dotenv import load_dotenv, find_dotenv
 
 # Env
+
+
 def load_config():
 
-  load_dotenv(find_dotenv())
+    load_dotenv(find_dotenv())
 
-  config = load_dotenv('../.env')
-
-  return config
+    load_dotenv('../.env')
 
 
 # Langchain
@@ -23,4 +23,3 @@ def load_config():
 # dataset_path = f"hub://{my_activeloop_org_id}/{my_activeloop_dataset_name}"
 
 # db = DeepLake(dataset_path=dataset_path, embedding_function=embeddings)
-

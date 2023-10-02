@@ -1,5 +1,6 @@
 .env
+.DS_Store
 
 environment/
-
-**/*/__pycache__
+deeplake/
+__pycache__/
