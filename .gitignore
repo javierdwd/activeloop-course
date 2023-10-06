@@ -4,3 +4,5 @@
 environment/
 deeplake/
 __pycache__/
+
+tmp/
