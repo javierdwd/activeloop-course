@@ -1,5 +1,8 @@
+import networkx as nx
+from pyvis.network import Network
 from dotenv import load_dotenv, find_dotenv
-
+from typing import List
+from pathlib import Path
 # Env
 
 
@@ -10,16 +13,37 @@ def load_config():
     load_dotenv('../.env')
 
 
-# Langchain
-# from langchain.vectorstores import DeepLake
-# from langchain.embeddings import OpenAIEmbeddings
-# from langchain.embeddings.openai import OpenAIEmbeddings
-# from langchain.vectorstores import DeepLake
+# Create a NetworkX graph from the extracted relation triplets
 
-# embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+def create_graph_from_triplets(triplets):
+    G = nx.DiGraph()
+    for triplet in triplets:
+        subject, predicate, obj = triplet.strip().split(',')
+        G.add_edge(subject.strip(), obj.strip(), label=predicate.strip())
+    return G
 
-# my_activeloop_org_id = "javiervb"
-# my_activeloop_dataset_name = "langchain_course_from_zero_to_hero"
-# dataset_path = f"hub://{my_activeloop_org_id}/{my_activeloop_dataset_name}"
+# Convert the NetworkX graph to a PyVis network
 
-# db = DeepLake(dataset_path=dataset_path, embedding_function=embeddings)
+
+def nx_to_pyvis(networkx_graph):
+    pyvis_graph = Network(notebook=True)
+    for node in networkx_graph.nodes():
+        pyvis_graph.add_node(node)
+    for edge in networkx_graph.edges(data=True):
+        pyvis_graph.add_edge(edge[0], edge[1], label=edge[2]["label"])
+    return pyvis_graph
+
+
+def draw_kgraph(triples_list: List[str], filename: str):
+    triplets = [t.strip() for t in triples_list if t.strip()]
+    graph = create_graph_from_triplets(triplets)
+    pyvis_network = nx_to_pyvis(graph)
+
+    # Customize the appearance of the graph
+    pyvis_network.toggle_hide_edges_on_drag(True)
+    pyvis_network.toggle_physics(False)
+    pyvis_network.set_edge_smooth('discrete')
+
+    # Show the interactive knowledge graph visualization
+    path_to_file = (Path("tmp") / filename)
+    pyvis_network.show(path_to_file.as_posix())
