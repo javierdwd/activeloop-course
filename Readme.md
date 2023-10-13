@@ -5,10 +5,10 @@
 ## Pre-Requisites
 Install virtual environment.
 
-`py -m venv  ./environment`
+`py -m venv  ./venv`
 
 Activate local env.
 
-`source ./environment/bin/activate`
+`source ./venv/bin/activate`
 
-Install dependencies with `pip3 install langchain deeplake openai tiktoken python-dotenv`
+Install dependencies: `pip install -r requirements.txt`

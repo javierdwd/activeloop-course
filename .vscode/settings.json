@@ -9,5 +9,6 @@
         "${workspaceFolder}/src"
     ],
     "editor.defaultFormatter": "ms-python.autopep8",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "python.analysis.typeCheckingMode": "basic"
 }
