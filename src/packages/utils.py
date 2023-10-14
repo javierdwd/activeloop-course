@@ -3,6 +3,10 @@ from pyvis.network import Network
 from dotenv import load_dotenv, find_dotenv
 from typing import List
 from pathlib import Path
+import os
+
+from langchain.vectorstores.deeplake import DeepLake
+from langchain.schema.embeddings import Embeddings
 # Env
 
 
@@ -47,3 +51,10 @@ def draw_kgraph(triples_list: List[str], filename: str):
     # Show the interactive knowledge graph visualization
     path_to_file = (Path("tmp") / filename)
     pyvis_network.show(path_to_file.as_posix())
+
+
+def create_store(dataset_name: str, embedding: Embeddings):
+    my_activeloop_org_id = os.environ["ACTIVELOOP_ORG_ID"]
+    dataset_path = f"hub://{my_activeloop_org_id}/{dataset_name}"
+    store = DeepLake(dataset_path=dataset_path, embedding=embedding)
+    return store
