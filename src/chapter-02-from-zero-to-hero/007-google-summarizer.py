@@ -1,9 +1,12 @@
+from packages.utils import load_config
 from langchain.llms import OpenAI
 from langchain.agents import Tool
 from langchain.utilities import GoogleSearchAPIWrapper
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.agents import initialize_agent, AgentType
+
+load_config()
 
 llm = OpenAI(model="text-davinci-003", temperature=0)
 
@@ -14,7 +17,7 @@ prompt = PromptTemplate(
 
 summarize_chain = LLMChain(llm=llm, prompt=prompt)
 
-search = GoogleSearchAPIWrapper()
+search = GoogleSearchAPIWrapper(search_engine="Google")
 
 tools = [
     Tool(
